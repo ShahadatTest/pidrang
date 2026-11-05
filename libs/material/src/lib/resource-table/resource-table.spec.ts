@@ -177,4 +177,58 @@ describe('ResourceTable', () => {
     }
     expect(getComputedStyle(container).overflowX).toBe('auto');
   });
+
+  it('keeps a long field value on one line, at the top of the row, with the full value in the title', async () => {
+    TestBed.configureTestingModule({ imports: [ResourceTable] });
+
+    const longText = 'A long value '.repeat(40).trim();
+    const fixture = TestBed.createComponent(ResourceTable);
+    fixture.componentRef.setInput('fields', [{ name: 'body', type: 'text' }]);
+    fixture.componentRef.setInput('data', [{ body: longText }]);
+    await fixture.whenStable();
+
+    const cell = fixture.nativeElement.querySelector('tbody td') as HTMLElement;
+    expect(cell.getAttribute('title')).toBe(longText);
+    expect(getComputedStyle(cell).verticalAlign).toBe('top');
+
+    const text = cell.querySelector('.cell-text');
+    if (text === null) {
+      throw new Error('the cell has no text wrapper');
+    }
+    const style = getComputedStyle(text);
+    expect(style.display).toBe('block');
+    expect(style.maxWidth).toBe('12rem');
+    expect(style.overflow).toBe('hidden');
+    expect(style.textOverflow).toBe('ellipsis');
+    expect(style.whiteSpace).toBe('nowrap');
+  });
+
+  it('keeps the projected actions on one line', async () => {
+    @Component({
+      imports: [ResourceTable],
+      template: `
+        <pidrang-material-resource-table [fields]="fields" [data]="data">
+          <ng-template #actions let-row>
+            <a href="/">Show</a>
+            <a href="/">Edit</a>
+            <button type="button">Delete {{ row.name }}</button>
+          </ng-template>
+        </pidrang-material-resource-table>
+      `,
+    })
+    class HostWithNowrapActions {
+      protected readonly fields = [{ name: 'name', type: 'text' as const }];
+      protected readonly data = [{ name: 'Alice' }];
+    }
+
+    TestBed.configureTestingModule({ imports: [HostWithNowrapActions] });
+
+    const fixture = TestBed.createComponent(HostWithNowrapActions);
+    await fixture.whenStable();
+
+    const actionsCell = fixture.nativeElement.querySelector(
+      'tbody tr td:last-child',
+    ) as HTMLElement;
+    expect(getComputedStyle(actionsCell).whiteSpace).toBe('nowrap');
+  });
 });

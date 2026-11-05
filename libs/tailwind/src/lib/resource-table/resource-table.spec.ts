@@ -181,4 +181,58 @@ describe('ResourceTable', () => {
     expect(container?.getAttribute('tabindex')).toBe('0');
     expect(container?.getAttribute('aria-label')).toBe('Resource table');
   });
+
+  it('keeps a long field value on one line, at the top of the row, with the full value in the title', async () => {
+    TestBed.configureTestingModule({ imports: [ResourceTable] });
+
+    const longText = 'A long value '.repeat(40).trim();
+    const fixture = TestBed.createComponent(ResourceTable);
+    fixture.componentRef.setInput('fields', [{ name: 'body', type: 'text' }]);
+    fixture.componentRef.setInput('data', [{ body: longText }]);
+    await fixture.whenStable();
+
+    const cell = fixture.nativeElement.querySelector('tbody td') as HTMLElement;
+    expect(cell.getAttribute('title')).toBe(longText);
+    expect(cell.className).toContain('align-top');
+
+    const text = cell.querySelector('span');
+    if (text === null) {
+      throw new Error('the cell has no text wrapper');
+    }
+    expect(text.textContent?.trim()).toBe(longText);
+    expect(text.className).toContain('block');
+    expect(text.className).toContain('max-w-[12rem]');
+    expect(text.className).toContain('truncate');
+  });
+
+  it('keeps the projected actions on one line', async () => {
+    @Component({
+      imports: [ResourceTable],
+      template: `
+        <pidrang-tailwind-resource-table [fields]="fields" [data]="data">
+          <ng-template #actions let-row>
+            <span class="flex gap-3">
+              <a href="/">Show</a>
+              <a href="/">Edit</a>
+              <button type="button">Delete {{ row.name }}</button>
+            </span>
+          </ng-template>
+        </pidrang-tailwind-resource-table>
+      `,
+    })
+    class HostWithNowrapActions {
+      protected readonly fields = [{ name: 'name', type: 'text' as const }];
+      protected readonly data = [{ name: 'Alice' }];
+    }
+
+    TestBed.configureTestingModule({ imports: [HostWithNowrapActions] });
+
+    const fixture = TestBed.createComponent(HostWithNowrapActions);
+    await fixture.whenStable();
+
+    const actionsCell = fixture.nativeElement.querySelector(
+      'tbody tr td:last-child',
+    ) as HTMLElement;
+    expect(actionsCell.className).toContain('whitespace-nowrap');
+  });
 });
