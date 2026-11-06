@@ -1,3 +1,66 @@
+## 0.1.1 (2026-11-06)
+
+### Features
+
+- hide write actions when nobody is signed in ([#176](https://github.com/pidrang/pidrang/pull/176), [#162](https://github.com/pidrang/pidrang/issues/162))
+- **cli:** sort generated list pages newest first ([#111](https://github.com/pidrang/pidrang/issues/111))
+- **cli:** let connectionFromPlan report warnings ([6674dcb](https://github.com/pidrang/pidrang/commit/6674dcb))
+- **cli:** give resources and fields readable labels and mark audit columns read-only ([320ef31](https://github.com/pidrang/pidrang/commit/320ef31))
+- **cli:** title the generated pages with the resource label ([f9b97d4](https://github.com/pidrang/pidrang/commit/f9b97d4))
+- **cli:** generate the sign-in page, with a plan key and a wizard question ([9ca99be](https://github.com/pidrang/pidrang/commit/9ca99be))
+- **cli:** emit the sign-in guard from the resource routes ([53d8371](https://github.com/pidrang/pidrang/commit/53d8371))
+- **cli-supabase:** ask the URL first and default to the service role key ([63f13e3](https://github.com/pidrang/pidrang/commit/63f13e3))
+- **cli-supabase:** use the publishable and secret key names ([#124](https://github.com/pidrang/pidrang/issues/124))
+- **cli-supabase:** read whether a table needs a signed-in user ([51d811d](https://github.com/pidrang/pidrang/commit/51d811d))
+- **core:** add defaultSorters to Resource ([b4dc12a](https://github.com/pidrang/pidrang/commit/b4dc12a))
+- **core:** expose the session identity as a signal from providePidrang ([a2d6a73](https://github.com/pidrang/pidrang/commit/a2d6a73))
+- **pidrang:** offer to install the required packages after init ([#122](https://github.com/pidrang/pidrang/issues/122))
+- **pidrang:** open the first generated page on a new app and leave used apps' routes alone ([f3b5982](https://github.com/pidrang/pidrang/commit/f3b5982))
+- **pidrang:** generate a navigation layout and the sign-in path in a new app ([6fdf9f1](https://github.com/pidrang/pidrang/commit/6fdf9f1))
+- **pidrang:** write the sign-in page and add a generate auth command ([3a3981a](https://github.com/pidrang/pidrang/commit/3a3981a))
+- **pidrang:** open a new app on the sign-in page when its reads are private ([64adfed](https://github.com/pidrang/pidrang/commit/64adfed))
+- **pidrang:** add tables to an existing resources.ts on a later init ([41c7c86](https://github.com/pidrang/pidrang/commit/41c7c86))
+
+### Fixes
+
+- hide the side menu on narrow screens ([1014a2c](https://github.com/pidrang/pidrang/commit/1014a2c))
+- return focus to Menu, close on an outside tap and truncate only on narrow screens ([d96dd6e](https://github.com/pidrang/pidrang/commit/d96dd6e))
+- show the database-default hint on create only ([0a82ede](https://github.com/pidrang/pidrang/commit/0a82ede))
+- scroll the resource table in its own container ([22a068a](https://github.com/pidrang/pidrang/commit/22a068a))
+- keep long table cell values on one line ([#181](https://github.com/pidrang/pidrang/pull/181), [#170](https://github.com/pidrang/pidrang/issues/170))
+- **cli:** remove the welcome title test when init replaces app.html ([32c1df5](https://github.com/pidrang/pidrang/commit/32c1df5))
+- **cli:** leave the sign-in route out when init writes no sign-in page ([8a3f536](https://github.com/pidrang/pidrang/commit/8a3f536))
+- **cli:** ask whether reads need a signed-in user only once the sign-in page is known ([d575dd6](https://github.com/pidrang/pidrang/commit/d575dd6))
+- **cli:** refuse a table named sign-in on every run ([#143](https://github.com/pidrang/pidrang/issues/143))
+- **cli:** color page errors with the theme error color ([#175](https://github.com/pidrang/pidrang/pull/175), [#159](https://github.com/pidrang/pidrang/issues/159))
+- **cli:** treat camelCase createdAt and updatedAt as audit columns ([#178](https://github.com/pidrang/pidrang/pull/178), [#168](https://github.com/pidrang/pidrang/issues/168))
+- **cli:** keep line breaks escaped in the Tailwind sign-in page ([ef83e57](https://github.com/pidrang/pidrang/commit/ef83e57))
+- **cli:** name both env files and end init with ng serve ([#169](https://github.com/pidrang/pidrang/issues/169))
+- **cli:** say the sign-in page is already in place on a rerun ([d8429d8](https://github.com/pidrang/pidrang/commit/d8429d8))
+- **cli-supabase:** ask again for a publishable key or an unreachable URL ([271d14a](https://github.com/pidrang/pidrang/commit/271d14a))
+- **cli-supabase:** point each key to its dashboard place and test sb_secret_ in the gate ([6bc64d6](https://github.com/pidrang/pidrang/commit/6bc64d6))
+- **cli-supabase:** read the anon select grant when deciding if reads need a sign-in ([c8af111](https://github.com/pidrang/pidrang/commit/c8af111))
+- **core:** keep only the latest session identity ([8dbb4b2](https://github.com/pidrang/pidrang/commit/8dbb4b2))
+- **pidrang:** install only the missing packages and find the workspace package manager ([336e0fb](https://github.com/pidrang/pidrang/commit/336e0fb))
+- **pidrang:** close the pidrang comments init writes into app.html ([a9953fa](https://github.com/pidrang/pidrang/commit/a9953fa))
+- **pidrang:** make a new app with the navigation layout build, test and start ([89f35b6](https://github.com/pidrang/pidrang/commit/89f35b6))
+- **pidrang:** open the first generated list before a create-only page ([8105930](https://github.com/pidrang/pidrang/commit/8105930))
+- **pidrang:** quote the redirect and sign-in path init prints as code ([1b6caef](https://github.com/pidrang/pidrang/commit/1b6caef))
+- **pidrang:** say when a plan's layout is not added to an existing app ([3010fc6](https://github.com/pidrang/pidrang/commit/3010fc6))
+- **pidrang:** keep the sign-in step of a commented config, and the generated pages whole ([545d75c](https://github.com/pidrang/pidrang/commit/545d75c))
+- **pidrang:** keep a local provideSignInPath instead of importing it over itself ([9791d94](https://github.com/pidrang/pidrang/commit/9791d94))
+- **pidrang:** leave a foreign provideSignInPath alone instead of importing pidrang's over it ([19071d3](https://github.com/pidrang/pidrang/commit/19071d3))
+- **pidrang:** say which private tables init left unguarded ([1d72315](https://github.com/pidrang/pidrang/commit/1d72315))
+- **pidrang:** stop on a foreign resources.ts and type-check the tables a later init adds ([edaefd0](https://github.com/pidrang/pidrang/commit/edaefd0))
+- **pidrang:** hold back guards for tables resources.ts does not list and stop on a broken resources.ts ([38fa521](https://github.com/pidrang/pidrang/commit/38fa521))
+- **pidrang:** ask to install the packages, say why resources.ts is in the way and read double-quoted resource routes ([f4518d3](https://github.com/pidrang/pidrang/commit/f4518d3))
+- **pidrang:** write the sign-in route only with its page ([#156](https://github.com/pidrang/pidrang/issues/156))
+- **pidrang:** open / on a page the final resources.ts enables ([#145](https://github.com/pidrang/pidrang/issues/145))
+
+### Performance
+
+- **cli:** lazy-load the generated pages from resource-routes.ts ([bb116bb](https://github.com/pidrang/pidrang/commit/bb116bb))
+
 ## 0.1.0 (2026-10-19)
 
 ### Features
